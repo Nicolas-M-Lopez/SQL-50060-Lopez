@@ -1,0 +1,472 @@
+DROP SCHEMA IF EXISTS GESTAR; 
+CREATE SCHEMA IF NOT EXISTS GESTAR; -- Creacion del schema
+USE GESTAR; -- Inicializacion del schema
+
+CREATE TABLE IF NOT EXISTS ADMINISTRADOR( -- Tabla con datos del administrador
+MATRICULA INT PRIMARY KEY,
+CUIT_ADMINISTRADOR BIGINT NOT NULL, 
+TELEFONO BIGINT,
+NOMBRE VARCHAR(15) NOT NULL,
+APELLIDO VARCHAR(15) NOT NULL,
+EMAIL VARCHAR(30) NOT NULL,
+CONTRASEÑA VARCHAR(20) NOT NULL
+);
+
+-- Creacion de registros en la tabla administrador
+INSERT INTO ADMINISTRADOR (MATRICULA, CUIT_ADMINISTRADOR, TELEFONO, NOMBRE, APELLIDO, EMAIL, CONTRASEÑA) VALUES 
+	(11111, 11111111111, 1111111111, 'Nicolas', 'Lopez', 'nicolasmlopez00@gmail.com', 'Contraseña1'),
+	(22222, 22222222222, 2222222222, 'Maira', 'Pelozo', 'mairapelozo@gmail.com', 'Contraseña2'),
+	(33333, 33333333333, 3333333333, 'Camilo', 'Redondo', 'camiloredondo@gmail.com', 'Contraseña3'),
+	(44444, 44444444444, 4444444444, 'Facundo', 'Fiotto', 'facundofiotto@gmail.com', 'Contraseña4'),
+	(55555, 55555555555, 5555555555, 'Julian', 'Fernandez', 'julianfernandez@gmail.com', 'Contraseña5'),
+	(66666, 66666666666, 6666666666, 'Francisco', 'Bustos', 'franciscobustos@gmail.com', 'Contraseña6'),
+	(77777, 77777777777, 7777777777, 'Eliana', 'Martos', 'elianamartos@gmail.com', 'Contraseña7'),
+	(88888, 88888888888, 8888888888, 'Agustina', 'Gomez', 'agustinagomez@gmail.com', 'Contraseña8'),
+	(99999, 99999999999, 9999999999, 'Lautaro', 'Diaz', 'lautarodiaz@gmail.com', 'Contraseña9'),
+	(10101, 10101010101, 1010101010, 'Valentina', 'Perez', 'valentinaperez@gmail.com', 'Contraseña10'),
+	(11112, 11111111112, 1111111112, 'Tomas', 'Garcia', 'tomasgarcia@gmail.com', 'Contraseña11'),
+	(12121, 12121212121, 1212121212, 'Sofia', 'Martinez', 'sofiamartinez@gmail.com', 'Contraseña12'),
+	(13131, 13131313131, 1313131313, 'Matias', 'Rodriguez', 'matiasrodriguez@gmail.com', 'Contraseña13'),
+	(14141, 14141414141, 1414141414, 'Camila', 'López', 'camilalopez@gmail.com', 'Contraseña14'),
+	(15151, 15151515151, 1515151515, 'Benjamin', 'Castro', 'benjamincastro@gmail.com', 'Contraseña15');
+
+
+CREATE TABLE IF NOT EXISTS PROVEDOR( -- Tabla con datos del provedor e identificacion del administrador
+ID_PROVEDOR INT PRIMARY KEY AUTO_INCREMENT,
+MATRICULA_ADMINISTRADOR INT,
+NOMBRE_COMPLETO VARCHAR(40) NOT NULL, 
+CUIT_PROVEDOR BIGINT,
+CONSTRAINT MATRICULA_ADMINISTRADOR FOREIGN KEY (MATRICULA_ADMINISTRADOR) REFERENCES ADMINISTRADOR (MATRICULA)
+);
+
+-- Creacion de registros en la tabla provedor
+INSERT INTO PROVEDOR (MATRICULA_ADMINISTRADOR, NOMBRE_COMPLETO, CUIT_PROVEDOR) VALUES
+	(11111, 'DESTAPA TODO', 00000000000),
+	(22222, 'ASCENSORES VECTOR', 11111111111),
+	(33333, 'FUMIGACION KARINA', 22222222222),
+	(11111, 'VERTIROD', 33333333333),
+	(11111, 'ADMINISTRACION LOPEZ', 44444444444),
+	(44444, 'ASCENSORES VECTOR', 11111111111),
+	(13131, 'SECLAN', 55555555555),
+	(15151, 'GESTIONAR', 66666666666),
+	(55555, 'GESTIONAR', 66666666666),
+	(10101, 'NANOTECK', 77777777777),
+	(12121, 'FUMIGACIONES LOMAR', 88888888888),
+	(99999, 'VELAZQUEZ', 99999999999),
+	(11112, 'A-GESTION', 10101010101),
+	(14141, 'A-GESTION', 10101010101),
+	(77777, 'MATAFUEGOS DEL PARQUE', 11111111112);
+
+CREATE TABLE IF NOT EXISTS CONSORCIO( -- Tabla con datos del consorcio e idetificacion del adminsitrador
+ID INT PRIMARY KEY AUTO_INCREMENT,
+CUIT_CONSORCIO BIGINT,
+DIRECCION VARCHAR(40) NOT NULL,
+MATRICULA_ADMINISTRADOR INT,
+UNIDADES_FUNCIONALES INT NOT NULL,
+CONSTRAINT MATRICULA_ADMINISRTADOR FOREIGN KEY (MATRICULA_ADMINISTRADOR) REFERENCES ADMINISTRADOR (MATRICULA)
+);
+
+-- Creacion de registros en la tabla consorcio 
+INSERT INTO CONSORCIO (CUIT_CONSORCIO, DIRECCION, MATRICULA_ADMINISTRADOR, UNIDADES_FUNCIONALES) VALUES
+(11111111111, 'AVENIDA FELIZ 132', 11111, 43),
+(22222222222, 'CASA NUEVA 9977', 10101, 12),
+(33333333333, 'WASHIGNTON 1515', 99999, 105),
+(44444444444, 'CALLE LARGA 456', 88888, 20),
+(55555555555, 'AVENIDA DEL SOL 2222', 77777, 65),
+(66666666666, 'BARRIO CERRADO LAS LOMAS', 66666, 30),
+(77777777777, 'PARQUE LAS HERAS 123', 11111, 80),
+(88888888888, 'CALLE 54 100', 44444, 15),
+(99999999999, 'AVENIDA RIVADAVIA 3333', 33333, 40),
+(10101010101, 'DIAGONAL NORTE 789', 22222, 50),
+(11111111112, 'CALLE 8 25', 11111, 25),
+(12121212122, 'AVENIDA INDEPENDENCIA 1810', 10101, 70),
+(13131313133, 'PUERTO MADERO 1234', 99999, 90),
+(14141414144, 'AVENIDA CORRIENTES 1453', 15151, 35),
+(15151515155, 'BARRIO NORTE 5678', 77777, 110);
+
+
+CREATE TABLE IF NOT EXISTS PROPIETARIO( -- Tabla con datos del propietario e identificacion del consorcio
+DNI INT PRIMARY KEY,
+ID_CONSORCIO INT,
+EMAIL VARCHAR(30),
+APELLIDO VARCHAR(15) NOT NULL,
+UNIDAD_FUNCIONAL INT NOT NULL,
+DEUDA INT NOT NULL,
+CONSTRAINT ID_CONSORCIO_PROP FOREIGN KEY (ID_CONSORCIO) REFERENCES CONSORCIO (ID)
+);
+
+-- Creacion de registros en la tabla propietario
+INSERT INTO PROPIETARIO (DNI, ID_CONSORCIO, EMAIL, APELLIDO, UNIDAD_FUNCIONAL, DEUDA) VALUES
+	(11111111, 1, 'lopez@gmail.com', 'Lopez', 5, 15000),
+	(22222222, 2, 'gomez@gmail.com', 'Gomez', 12, 0),
+	(33333333, 1, 'fernandez@gmail.com', 'Fernandez', 1, 50000),
+	(44444444, 3, 'rojo@gmail.com', 'Rojo', 2, 5000),
+	(55555555, 5, 'verde@gmail.com', 'Verde', 14, 0),
+	(66666666, 10, 'naranja@gmail.com', 'Naranja', 13, 40000),
+	(77777777, 1, 'violeta@gmail.com', 'Violeta', 5, 2500),
+	(88888888, 6, 'amarillo@gmail.com', 'Amarillo', 16, 0),
+	(99999999, 9, 'rosa@gmail.com', 'Rosa', 17, 15000),
+	(10101010, 3, 'celeste@gmail.com', 'Celeste', 18, 35000),
+	(11111112, 13, 'marfil@gmail.com', 'Marfil', 19, 0),
+	(12121212, 15, 'plateado@gmail.com', 'Plateado', 21, 20000),
+	(13131313, 3, 'dorado@gmail.com', 'Dorado', 22, 45000),
+	(14141414, 7, 'purpura@gmail.com', 'Purpura', 23, 0),
+	(15151515, 3, 'marron@gmail.com', 'Marron', 24, 30000);
+
+
+CREATE TABLE IF NOT EXISTS EXPENSA( -- Tabla con datos de la expensa e identificacion del consorcio
+ID_EXPENSA INT AUTO_INCREMENT PRIMARY KEY,
+ID_CONSORCIO INT,
+MES VARCHAR(10) NOT NULL,
+AÑO INT NOT NULL,
+CONSTRAINT ID_CONSORCIO_EXP FOREIGN KEY (ID_CONSORCIO) REFERENCES CONSORCIO (ID)
+);
+
+-- Creacion de registros en la tabla expensa
+INSERT INTO EXPENSA (ID_CONSORCIO, MES, AÑO) VALUES
+(10, 'OCTUBRE', 2014),
+(2, 'ENERO', 2015),
+(7, 'MAYO', 2001),
+(10, 'OCTUBRE', 2014),
+(2, 'ENERO', 2015),
+(7, 'MAYO', 2001),
+(1, 'DICIEMBRE', 2023),
+(3, 'FEBRERO', 2022),
+(5, 'JULIO', 2018),
+(12, 'NOVIEMBRE', 2019),
+(4, 'MARZO', 2017),
+(6, 'AGOSTO', 2016),
+(8, 'ABRIL', 2013),
+(9, 'SEPTIEMBRE', 2012),
+(14, 'JUNIO', 2020);
+
+
+
+CREATE TABLE IF NOT EXISTS CAJA_TOTAL( -- Tabla con datos de la caja e identificacion de la expensa
+ID_CAJA INT PRIMARY KEY AUTO_INCREMENT,
+ID_EXPENSA INT,
+TOTAL INT NOT NULL,
+CONSTRAINT ID_EXPENSA FOREIGN KEY (ID_EXPENSA) REFERENCES EXPENSA (ID_EXPENSA)
+);
+
+-- Creacion de registros en la tabla caja_total
+INSERT INTO CAJA_TOTAL (ID_EXPENSA, TOTAL) VALUES 
+(1, 500000),
+(2, 1000200),
+(3, 850000),
+(4, 1200000),
+(5, 700000),
+(6, 950000),
+(7, 600000),
+(8, 1100000),
+(9, 550000),
+(10, 1050000),
+(11, 800000),
+(12, 1250000),
+(13, 750000),
+(14, 1000000),
+(15, 650000);
+
+
+
+CREATE TABLE IF NOT EXISTS CAJA_BANCO( -- Tabla con datos de la caja banco e identificacion de la caja total
+ID_BANCO INT AUTO_INCREMENT PRIMARY KEY,
+ID_CAJA INT,
+INGRESOS_BANCO INT,
+EGRESOS_BANCO INT,
+CONSTRAINT ID_CAJA_B FOREIGN KEY (ID_CAJA) REFERENCES CAJA_TOTAL (ID_CAJA)
+);
+
+-- Creacion de registros en la tabla caja_banco
+INSERT INTO CAJA_BANCO (ID_CAJA, INGRESOS_BANCO, EGRESOS_BANCO) VALUES
+(1, 500000, 250000),
+(2, 1000200, 500100),
+(3, 850000, 425000),
+(4, 1200000, 600000),
+(5, 700000, 350000),
+(6, 950000, 475000),
+(7, 600000, 300000),
+(8, 1100000, 505000),
+(9, 550000, 275000),
+(10, 1050000, 525000),
+(11, 800000, 400000),
+(12, 1250000, 625000),
+(13, 750000, 375000),
+(14, 1000000, 500000),
+(15, 650000, 325000);
+
+CREATE TABLE IF NOT EXISTS CAJA_EFECTIVO( -- Tabla con datos de la caja efectivo e identificacion de la caja total
+ID_EFECTIVO INT AUTO_INCREMENT PRIMARY KEY,
+ID_CAJA INT,
+INGRESOS_EFECTIVO INT,
+EGRESOS_EFECTIVO INT,
+CONSTRAINT ID_CAJA_E FOREIGN KEY (ID_CAJA) REFERENCES CAJA_TOTAL (ID_CAJA)
+);
+
+-- Creacion de registros en la tabla caja_efectivo
+INSERT INTO CAJA_EFECTIVO (ID_CAJA, INGRESOS_EFECTIVO, EGRESOS_EFECTIVO) VALUES
+(1, 500000, 250000),
+(2, 1000200, 500100),
+(3, 850000, 425000),
+(4, 1200000, 600000),
+(5, 700000, 350000),
+(6, 950000, 475000),
+(7, 600000, 300000),
+(8, 1100000, 505000),
+(9, 550000, 275000),
+(10, 1050000, 525000),
+(11, 800000, 400000),
+(12, 1250000, 625000),
+(13, 750000, 375000),
+(14, 1000000, 500000),
+(15, 650000, 325000);
+
+
+CREATE VIEW propietarios_deudores AS -- Creacion de vista para ver los propietarios que tienen deuda
+SELECT
+    p.DNI,
+    p.APELLIDO,
+    p.UNIDAD_FUNCIONAL,
+    p.DEUDA
+FROM PROPIETARIO p
+WHERE p.DEUDA > 0;
+
+SELECT * FROM PROPIETARIOS_DEUDORES;
+
+CREATE VIEW proveedores_por_administrador AS -- Creacion de vista para ver los provedores por administrado
+SELECT
+    a.NOMBRE,
+    a.APELLIDO,
+    p.NOMBRE_COMPLETO
+FROM ADMINISTRADOR a
+INNER JOIN PROVEDOR p ON p.MATRICULA_ADMINISTRADOR = a.MATRICULA;
+
+SELECT * FROM PROVEEDORES_POR_ADMINISTRADOR;
+
+CREATE VIEW propietarios_unidades_por_consorcio AS -- Creacion de vista para ver los propietarios y su unidad funcional de los consorcios 
+SELECT
+    c.ID,
+    c.DIRECCION,
+    p.DNI,
+    p.APELLIDO,
+    p.UNIDAD_FUNCIONAL
+FROM CONSORCIO c
+INNER JOIN PROPIETARIO p ON p.ID_CONSORCIO = c.ID;
+
+SELECT * FROM PROPIETARIOS_UNIDADES_POR_CONSORCIO;
+
+
+CREATE VIEW consorcios_grandes AS -- Creacion de vista para ver los consorcios con mas de 50 unidades funcionales
+SELECT
+    c.ID,
+    c.DIRECCION,
+    c.UNIDADES_FUNCIONALES
+FROM CONSORCIO c
+WHERE c.UNIDADES_FUNCIONALES > 50;
+
+SELECT * FROM CONSORCIOS_GRANDES;
+
+
+CREATE VIEW propietarios_no_deudores AS -- Creacion de vista para ver los propietarios que no poseen deuda
+SELECT
+    p.DNI,
+    p.APELLIDO,
+    p.UNIDAD_FUNCIONAL,
+    p.DEUDA
+FROM PROPIETARIO p
+WHERE p.DEUDA = 0;
+
+SELECT * FROM PROPIETARIOS_NO_DEUDORES;
+
+
+DROP FUNCTION IF EXISTS DINERO_RESTANTE; -- Creacion de funcion para calcular el dinero que hay al final del mes
+DELIMITER $$
+CREATE FUNCTION DINERO_RESTANTE (P_GASTOS_MES INT, P_RECAUDACION_MES INT) -- Parametros a ingresar
+RETURNS INT
+DETERMINISTIC
+BEGIN
+DECLARE V_TOTAL INT;
+SET V_TOTAL = P_RECAUDACION_MES - P_GASTOS_MES; -- Hacemos la resta
+RETURN V_TOTAL; -- Devuelve la siguiente variable
+END $$
+DELIMITER ; 
+
+SELECT DINERO_RESTANTE (600000,1100000) AS SALDO_FINAL;
+
+
+DROP FUNCTION IF EXISTS SALDO_CONSORCIO; -- Creacion de funcion para revisar el saldo de los consorcios 
+DELIMITER $$
+CREATE FUNCTION SALDO_CONSORCIO (P_CONSORCIO VARCHAR(255)) -- Parametro a ingresar
+RETURNS INT
+DETERMINISTIC
+BEGIN
+DECLARE V_ID_CONSORCIO INT;
+DECLARE V_ID_CAJA INT;
+DECLARE V_SALDO_FINAL INT;
+
+SELECT ID INTO V_ID_CONSORCIO FROM CONSORCIO WHERE DIRECCION = (P_CONSORCIO); -- Obtenemos el ID del consorcio
+
+SELECT ID_CAJA INTO V_ID_CAJA FROM CAJA_TOTAL WHERE ID_EXPENSA IN (SELECT ID_EXPENSA FROM EXPENSA WHERE ID_CONSORCIO = V_ID_CONSORCIO); -- Obtenemos el ID de la caja total
+
+SELECT (INGRESOS_BANCO - EGRESOS_BANCO) INTO V_SALDO_FINAL FROM CAJA_BANCO WHERE ID_CAJA = V_ID_CAJA; -- Calcula el saldo final del consonsorcio 
+
+RETURN V_SALDO_FINAL; -- Devuelve la siguiente variable
+END $$
+DELIMITER ;
+
+SELECT SALDO_CONSORCIO('BARRIO CERRADO LAS LOMAS');
+
+
+
+DROP PROCEDURE IF EXISTS SP_INSERTAR_PROVEDOR; -- Procedure para insertar provedores en la tabla de provedor
+DELIMITER %%
+CREATE PROCEDURE SP_INSERTAR_PROVEDOR(IN P_MATRICULA_ADMINISTRADOR INT, -- Definimos los datos de entrada (IN) y los de salida (OUT)
+									   IN P_NOMBRE_COMPLETO VARCHAR(40),
+                                       IN P_CUIT_PROVEDOR BIGINT,
+                                       OUT V_MATRICULA_ADMINISTRADOR INT,
+									   OUT V_NOMBRE_COMPLETO VARCHAR(40),
+                                       OUT V_CUIT_PROVEDOR BIGINT)
+BEGIN
+INSERT INTO PROVEDOR(MATRICULA_ADMINISTRADOR, NOMBRE_COMPLETO, CUIT_PROVEDOR) VALUES (  -- Se agregan a la tabla los parametros
+	P_MATRICULA_ADMINISTRADOR, P_NOMBRE_COMPLETO, P_CUIT_PROVEDOR);
+
+
+SELECT MATRICULA_ADMINISTRADOR, NOMBRE_COMPLETO, CUIT_PROVEDOR INTO V_MATRICULA_ADMINISTRADOR, V_NOMBRE_COMPLETO, V_CUIT_PROVEDOR -- Se muestran los datos en la tabla
+    FROM PROVEDOR
+    WHERE MATRICULA_ADMINISTRADOR = P_MATRICULA_ADMINISTRADOR
+        AND NOMBRE_COMPLETO = P_NOMBRE_COMPLETO
+        AND CUIT_PROVEDOR = P_CUIT_PROVEDOR
+	LIMIT 1;
+
+END %%
+DELIMITER ;
+
+CALL SP_INSERTAR_PROVEDOR(33333, 'SP Provedor', 123559789, @V_MATRICULA_ADMINISTRADOR, @V_NOMBRE_COMPLETO, @V_CUIT_PROVEDOR); -- se llama al stored procedure y se le agregan los parametros
+SELECT @V_MATRICULA_ADMINISTRADOR AS MATRICULA_ADM, @V_NOMBRE_COMPLETO AS PROVEDOR, @V_CUIT_PROVEDOR AS CUIT_PROVEDOR;
+
+
+
+DROP PROCEDURE IF EXISTS SP_ORDENAR_CONSORCIOS;
+DELIMITER %%
+CREATE PROCEDURE SP_ORDENAR_CONSORCIOS ( -- Procedure para ordenar los consorcios segun direccion o por cantidad de unidades funcionales, ademas se le puede ordenar de manera ascendente o descendiente
+  IN P_CAMPO ENUM('DIRECCION', 'UNIDADES_FUNCIONALES'), -- Definimos los datos de entrada (IN) y los de salida (OUT)
+  IN P_ORDEN BOOLEAN,
+  OUT V_CONSORCIOS_CAMPO TEXT
+)
+BEGIN
+  SET @ORDER_DIRECTION = IF(P_ORDEN, 'DESC', 'ASC'); -- Seteamos el orden ascendente o ascendente segun que se ingrese
+
+  CASE P_CAMPO -- Seteamos la query segun si quiere ordenar por direccion o por cantidad de unidades funcioanles
+    WHEN 'DIRECCION' THEN
+      SET @QUERY = CONCAT('SELECT * FROM CONSORCIO ORDER BY DIRECCION ', @ORDER_DIRECTION);
+    WHEN 'UNIDADES_FUNCIONALES' THEN
+      SET @QUERY = CONCAT('SELECT * FROM CONSORCIO ORDER BY UNIDADES_FUNCIONALES ', @ORDER_DIRECTION);
+    ELSE
+      SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Campo de ordenamiento no válido';
+  END CASE;
+
+  PREPARE stmt FROM @QUERY; -- Se prepara y ejecura la Query armada previamente
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
+
+  SET V_CONSORCIOS_CAMPO = @QUERY; -- Seteamos la variable de salida
+END %%
+DELIMITER ;
+
+CALL SP_ORDENAR_CONSORCIOS ('DIRECCION', 1, @V_CONSORCIOS_CAMPO); -- Se llama al stored y se agregan los parametros
+
+
+
+-- Crear la tabla para auditar los cambios en la tabla de administradores
+DROP TABLE IF EXISTS LOG_ADMINISTRADOR;
+CREATE TABLE IF NOT EXISTS LOG_ADMINISTRADOR (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    MATRICULA_ADMINISTRADOR INT,
+    FECHA DATE,
+    HORA TIME,
+    CAMPO_MODIFICADO VARCHAR(50),
+    VALOR_ANTERIOR VARCHAR(255),
+    VALOR_NUEVO VARCHAR(255),
+    USUARIO_MODIFICADOR VARCHAR(30)
+);
+
+-- Eliminar el trigger anterior si existe
+DROP TRIGGER IF EXISTS TRG_LOG_ADMINISTRADOR;
+
+-- Crear el trigger para auditar cambios en el campo 'EMAIL' de la tabla administrador
+DELIMITER //
+CREATE TRIGGER TRG_LOG_ADMINISTRADOR
+AFTER UPDATE ON GESTAR.ADMINISTRADOR
+FOR EACH ROW 
+BEGIN
+    -- Verificar si el campo 'EMAIL' ha sido modificado
+    IF NEW.EMAIL != OLD.EMAIL THEN
+        -- Insertar un nuevo registro en la tabla de log con los detalles del cambio
+        INSERT INTO LOG_ADMINISTRADOR (MATRICULA_ADMINISTRADOR, CAMPO_MODIFICADO, VALOR_ANTERIOR, VALOR_NUEVO, USUARIO_MODIFICADOR, FECHA, HORA)
+        VALUES (
+            NEW.MATRICULA,
+            'EMAIL',
+            OLD.EMAIL,
+            NEW.EMAIL,
+            CURRENT_USER(),
+            CURDATE(),
+            CURTIME()
+        );
+    END IF;
+END//
+DELIMITER ;
+
+-- Actualizar el campo 'EMAIL' de un administrador para activar el trigger
+UPDATE ADMINISTRADOR SET EMAIL = 'ejemplotrigger2@gmail.com' WHERE MATRICULA = 22222;
+
+-- Verificar el contenido de la tabla LOG_ADMINISTRADOR después de la actualización
+SELECT * FROM LOG_ADMINISTRADOR;
+
+
+
+
+-- Crear la tabla para auditar la caja banco
+DROP TABLE IF EXISTS LOG_CAJA_BANCO;
+CREATE TABLE IF NOT EXISTS LOG_CAJA_BANCO (
+    ID_LOG INT AUTO_INCREMENT PRIMARY KEY,
+    ID_CAJA INT,
+    ACCION VARCHAR(10), 
+    INGRESOS INT,
+    EGRESOS INT,
+    USUARIO VARCHAR(50),
+    FECHA DATE,
+    HORA TIME
+);
+
+-- Eliminar el trigger anterior si existe
+DROP TRIGGER IF EXISTS TRG_LOG_CAJA_BANCO;
+
+-- Crear el trigger para auditar ingresos y egresos en la tabla caja banco
+DELIMITER //
+CREATE TRIGGER TRG_LOG_CAJA_BANCO
+BEFORE INSERT ON GESTAR.CAJA_BANCO
+FOR EACH ROW
+BEGIN
+    INSERT INTO LOG_CAJA_BANCO (ID_CAJA, ACCION, INGRESOS, EGRESOS, USUARIO, FECHA, HORA)
+    VALUES (NEW.ID_CAJA, 'INSERT', NEW.INGRESOS_BANCO, NEW.EGRESOS_BANCO, CURRENT_USER(), CURDATE(), CURTIME());
+END;
+//
+DELIMITER ;
+
+-- Insertar un nuevo registro en CAJA_BANCO
+INSERT INTO CAJA_BANCO (ID_CAJA, INGRESOS_BANCO, EGRESOS_BANCO)
+VALUES (16, 300000, 150000);
+
+-- Verificar el contenido de la tabla LOG_CAJA_BANCO después de la inserción
+SELECT * FROM LOG_CAJA_BANCO;
+
+
+
+
+
+
+
+
+
+
