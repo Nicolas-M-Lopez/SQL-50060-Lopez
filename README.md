@@ -1,2 +1,1 @@
-Link Google Slides: Descripcion de la base de datos, listado de Tablas y Diagrama de entidades
-[https://docs.google.com/presentation/d/1dFaAF6CA0FCVV68DSTU5UvemZ8IS22q00qeJ9mqV2bA/edit?usp=sharing](https://docs.google.com/presentation/d/1dFaAF6CA0FCVV68DSTU5UvemZ8IS22q00qeJ9mqV2bA/edit?usp=sharing)https://docs.google.com/presentation/d/1dFaAF6CA0FCVV68DSTU5UvemZ8IS22q00qeJ9mqV2bA/edit?usp=sharing
+Para la preentrega 2, ya tengo creado el schema, las tablas principales, los registros de las tablas a traves del metodo Insert, creacion de vistas, funciones, stored procedures y triggers.
