@@ -1,0 +1,11 @@
+Manual para instalar la base de datos:
+
+1) Abrir MySQL Workbench y crear una base de datos nueva.
+2) Abrir el archivo SQL 01_Creacion_Insercion_Tablas y ejecutar el codigo.
+3) Abrir el archivo SQL 02_Objeto_Vistas y ejecutar el codigo.
+4) Abrir el archivo SQL 03_Objeto_Funciones y ejecutar el codigo.
+5) Abrir el archivo SQL 04_Objeto_Procedimientos y ejecutar el codigo.
+6) Abrir el archivo SQL 05_Objeto_Triggers y ejecutar el codigo.
+7) Abrir el archivo SQL 06_DCL y ejecutar el codigo.
+8) Abrir el archivo SQL 07_TCL y ejecutar el codigo.
+9) Abrir el archivo SQL 08_Backup_completo y ejecutar el codigo. (Solo realizar este paso si quiere realizar y ejecutar todo el codigo en un archivo)
